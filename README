@@ -1,1 +1,2 @@
 S2I blocked by https://bugzilla.redhat.com/show_bug.cgi?id=1312586
+Dockerfile blocked by https://issues.apache.org/jira/browse/PROTON-974
