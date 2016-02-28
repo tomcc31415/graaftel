@@ -45,7 +45,7 @@ args = parser.parse_args()
 logging.basicConfig(level=logging.DEBUG)
 
 receiver = Thread(target = Container(Tel(args.address)).run)
-producer = Thread(target = app.run)
+producer = Thread(target = app.run, kwargs = {'host': '0.0.0.0'})
 
 try:
     receiver.daemon = True
