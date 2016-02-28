@@ -44,12 +44,10 @@ args = parser.parse_args()
 
 logging.basicConfig(level=logging.DEBUG)
 
-receiver = Thread(target = Container(Tel(args.address)).run)
-producer = Thread(target = app.run, kwargs = {'host': '0.0.0.0'})
+receiver = Thread(target = Container(Tel(args.address)).run, daemon = True)
+producer = Thread(target = app.run, daemon = True, kwargs = {'host': '0.0.0.0'})
 
 try:
-    receiver.daemon = True
-    producer.daemon = True
     receiver.start(), producer.start(), receiver.join(), producer.join()
 except KeyboardInterrupt:
     pass
