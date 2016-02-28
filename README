@@ -1,3 +1,9 @@
 S2I blocked by https://bugzilla.redhat.com/show_bug.cgi?id=1312586
 EL/Centos Dockerfile blocked by https://issues.apache.org/jira/browse/PROTON-974
 Dockerfile w/ software collections blocked by https://bugzilla.redhat.com/show_bug.cgi?id=1312590
+
+oc new-app git://github.com/sparkhara/graaftel.git
+oc edit dc graaftel
+ (add args: ["amqp://..."] to container spec)
+oc expose dc graaftel --port=5000
+oc expose service graaftel --hostname=tel.10.19.20.9.xip.io
