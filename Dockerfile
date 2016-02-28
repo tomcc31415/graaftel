@@ -4,7 +4,7 @@ MAINTAINER Matthew Farrellee <matt@redhat.com>
 ADD requirements.txt /
 
 RUN dnf install -y gcc redhat-rpm-config python3 python3-devel libffi-devel openssl-devel cyrus-sasl-plain && \
-    pip install -r /requirements.txt && \
+    pip3 install -r /requirements.txt && \
     dnf -y remove gcc redhat-rpm-config python3-devel libffi-devel openssl-devel && \
     dnf clean all
 
