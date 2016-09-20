@@ -47,6 +47,7 @@ receiver.daemon = True
 producer.daemon = True
 try:
     receiver.start(), producer.start()
-    receiver.join(), producer.join()
+    while True:
+        receiver.join(10), producer.join(10)
 except KeyboardInterrupt:
     pass
