@@ -2,6 +2,7 @@ import os
 import logging
 import socket
 from threading import Thread
+import string
 
 from flask import Flask, request
 
@@ -37,6 +38,7 @@ def consumer():
     lines = ssc.socketTextStream(os.getenv('PRODUCER_SERVICE_HOST', 'localhost'),
                                  int(os.getenv('PRODUCER_SERVICE_PORT', 2016)))
     counts = lines.flatMap(lambda line: line.lower().split()) \
+                  .map(lambda word: word.encode('utf-8').translate(None, string.punctuation)) \
                   .filter(lambda word: word not in stop_words) \
                   .map(lambda word: (word, 1)) \
                   .reduceByKey(add)
