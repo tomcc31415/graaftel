@@ -2,7 +2,7 @@ import logging
 import socket
 from threading import Thread
 
-from flask import Flask
+from flask import Flask, request
 
 from operator import add
 from collections import Counter
@@ -19,7 +19,7 @@ words = Counter()
 @app.route("/")
 def ahahah():
     logging.debug('serving counts...')
-    return str(words.most_common(10))
+    return str(words.most_common(int(request.args.get('n') or 10)))
 
 def consumer():
     def process(time, rdd):
