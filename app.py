@@ -1,3 +1,4 @@
+import os
 import logging
 import socket
 from threading import Thread
@@ -29,7 +30,8 @@ def consumer():
     sc = SparkContext(appName='graaftel')
     ssc = StreamingContext(sc, 5)
 
-    lines = ssc.socketTextStream('localhost', 2016)
+    lines = ssc.socketTextStream(os.getenv('PRODUCER_SERVICE_HOST', 'localhost'),
+                                 int(os.getenv('PRODUCER_SERVICE_PORT', 2016)))
     counts = lines.flatMap(lambda line: line.lower().split()) \
                   .map(lambda word: (word, 1)) \
                   .reduceByKey(add)
