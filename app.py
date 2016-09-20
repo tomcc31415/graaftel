@@ -11,9 +11,12 @@ from collections import Counter
 from pyspark import SparkContext
 from pyspark.streaming import StreamingContext
 
+from stop_words import get_stop_words
+
 
 app = Flask(__name__)
 
+stop_words = get_stop_words('en')
 
 words = Counter()
 
@@ -33,6 +36,7 @@ def consumer():
     lines = ssc.socketTextStream(os.getenv('PRODUCER_SERVICE_HOST', 'localhost'),
                                  int(os.getenv('PRODUCER_SERVICE_PORT', 2016)))
     counts = lines.flatMap(lambda line: line.lower().split()) \
+                  .filter(lambda word: word not in stop_words) \
                   .map(lambda word: (word, 1)) \
                   .reduceByKey(add)
     counts.foreachRDD(process)
