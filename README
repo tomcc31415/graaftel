@@ -3,6 +3,6 @@ TODO
 Needs -
 
  . pip install -r requirement.txt
- . export PYTHONPATH=.../spark.../python
+ . export PYTHONPATH=.../spark.../python/lib/pyspark.zip:.../spark.../python/lib/py4j-0.10.1-src.zip
  . export SPARK_HOME=.../spark.../
  . A producer to be running on localhost:2016

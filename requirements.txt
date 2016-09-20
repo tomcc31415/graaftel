@@ -1,3 +1,2 @@
 Flask
-py4j
 stop-words
