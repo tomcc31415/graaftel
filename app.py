@@ -4,7 +4,7 @@ import socket
 from threading import Thread
 import string
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 
 from operator import add
 from collections import Counter
@@ -25,7 +25,11 @@ words = Counter()
 @app.route("/")
 def ahahah():
     logging.debug('serving counts...')
-    return jsonify(dict(words.most_common(int(request.args.get('n') or 10))))
+    top = words.most_common(int(request.args.get('n') or 10))
+    return render_template('index.html',
+                           categories=map(lambda x: x[0], top),
+                           data=map(lambda x: x[1], top))
+#    return jsonify(dict(top))
 
 def consumer():
     def process(time, rdd):
