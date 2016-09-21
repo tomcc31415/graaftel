@@ -37,8 +37,8 @@ def consumer():
 
     lines = ssc.socketTextStream(os.getenv('PRODUCER_SERVICE_HOST', 'localhost'),
                                  int(os.getenv('PRODUCER_SERVICE_PORT', 8080)))
-    counts = lines.flatMap(lambda line: line.lower().split()) \
-                  .map(lambda word: word.encode('utf-8').translate(None, string.punctuation)) \
+    counts = lines.flatMap(lambda line: line.encode('ascii', 'ignore').lower().split()) \
+                  .map(lambda word: word.translate(None, string.punctuation)) \
                   .filter(lambda word: word not in stop_words) \
                   .map(lambda word: (word, 1)) \
                   .reduceByKey(add)
