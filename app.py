@@ -50,7 +50,7 @@ def consumer():
 logging.basicConfig(level=logging.DEBUG)
 
 receiver = Thread(target = consumer)
-producer = Thread(target = app.run, kwargs = {'host': '0.0.0.0'})
+producer = Thread(target = app.run, kwargs = {'host': '0.0.0.0', 'port': 8080})
 
 receiver.daemon = True
 producer.daemon = True
