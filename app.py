@@ -47,7 +47,7 @@ def consumer():
     ssc.start()
     ssc.awaitTermination()
 
-logging.basicConfig(level=logging.DEBUG)
+#logging.basicConfig(level=logging.DEBUG)
 
 receiver = Thread(target = consumer)
 producer = Thread(target = app.run, kwargs = {'host': '0.0.0.0', 'port': 8080})
