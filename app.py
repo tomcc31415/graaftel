@@ -31,6 +31,16 @@ def ahahah():
                            data=map(lambda x: x[1], top))
 #    return jsonify(dict(top))
 
+@app.route("/updatedata")
+def dataonly():
+    logging.debug('serving data...')
+    top = words.most_common(int(request.args.get('n') or 10))
+    data=map(lambda x: x[1], top)
+    categories = map(lambda x: x[0], top)
+    data.insert(0, "counts")
+    return jsonify({"categories": categories, "data": [data]})
+
+
 def consumer():
     def process(time, rdd):
         global words
