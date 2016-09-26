@@ -29,6 +29,36 @@
     columns: columnsData,
   };
   var horizontalBarChart = c3.generate(horizontalBarChartConfig);
+
+  loadData = function() {
+    $.ajax({
+        url: "updatedata",
+        dataType: "json",
+    }).success(function(jsonData){
+      var horizontalBarChartConfig = $().c3ChartDefaults().getDefaultBarConfig(jsonData['categories']);
+      horizontalBarChartConfig.bindto = '#bar-chart';
+      horizontalBarChartConfig.axis = {
+        rotated: true,
+        x: {
+          categories: jsonData['categories'],
+          type: 'category'
+        }
+      };
+      horizontalBarChartConfig.data = {
+        type: 'bar',
+        columns: jsonData['data'],
+      };
+      horizontalBarChart = c3.generate(horizontalBarChartConfig);
+      setTimeout(function(){loadData();}, 10000);
+    });
+  };
+
+  setTimeout(function(){
+     var data = loadData();
+  }, 10000);
+
+
+
 </script>
 </body>
 </html>
