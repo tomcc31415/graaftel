@@ -17,7 +17,7 @@ from stop_words import get_stop_words
 
 app = Flask(__name__)
 
-stop_words = get_stop_words('en')
+stop_words = get_stop_words('nl')
 stop_words += (u'[', u']', u'')
 
 words = Counter()
@@ -46,7 +46,7 @@ def consumer():
         global words
         words += Counter(dict(rdd.collect()))
 
-    sc = SparkContext(appName='graaftel')
+    sc = SparkContext(appName='graafteldev')
     ssc = StreamingContext(sc, 5)
 
     lines = ssc.socketTextStream(os.getenv('PRODUCER_SERVICE_HOST', 'localhost'),
