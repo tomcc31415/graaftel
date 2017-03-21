@@ -46,7 +46,7 @@ def consumer():
         global words
         words += Counter(dict(rdd.collect()))
 
-    sc = SparkContext(appName='graafteldev')
+    sc = SparkContext(appName='graaftel')
     ssc = StreamingContext(sc, 5)
 
     lines = ssc.socketTextStream(os.getenv('PRODUCER_SERVICE_HOST', 'localhost'),
