@@ -17,7 +17,7 @@ from stop_words import get_stop_words
 
 app = Flask(__name__)
 
-stop_words = get_stop_words('nl')
+stop_words = get_stop_words('en')
 stop_words += (u'[', u']', u'')
 
 words = Counter()
